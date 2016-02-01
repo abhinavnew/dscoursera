@@ -1,0 +1,205 @@
+
+Reading a csv file -syntax
+>winedata<-read.csv(file ="E:\\AbhinavB\\winequality-white.csv",head=TRUE)
+
+
+
+
+> ds3.copy=ds3[,c("MONTH_SKEY","HM_LBRACCT_SKEY","SUPV_SKEY","HEADCOUNT","CLOCKING_FUTURE","CLOCKING_TOTAL")]
+> View(ds3.copy)
+
+add column to dataframe/dataset ds3.copy
+> ds3.copy<-within(ds3.copy,RatioMet1<-CLOCKING_FUTURE/CLOCKING_TOTAL)
+> HEAD(ds3.copy)
+
+
+function applied to selected columns only :::-
+
+>dataFrame$newColumn <- apply(dataFrame, 1, function(x) { . . . } )
+cbind(wifi[1:3], apply(wifi[4:9],2, A) )
+data.frame(wifi[1:3], lapply(wifi[4:9], A) )
+*******************************************************
+
+replacing NA with 0.00 for calculation purposes
+
+> airquality.copy$Ozone[is.na(airquality.copy$Ozone)]<-0
+> dftrial[is.na(dftrial$Ratio)]<-0
+
+saving dataframe 
+
+> View(ds3.work)
+> save(ds3.work,file="abhinavsample.Rda")
+> load("abhinavsample.Rda")
+>ls()
+
+>rm(ds4)
+
+
+BillingDeptMapping&Consolidation;ChargeMaster;VolumeDeptCopy;VolumeCopyOverride
+
+**********************************
+Plot function 
+
+> plot(ds4[c("alcohol","quality")])
+>plot(newds3.copy[c("RatioMet1","RatioMet2PTEditRate")],col = newds3.copy$newds3.copyK.cluster)
+
+plotting line graph for Arima
+>plot(inflationcopy$Inflation.index,type="l")
+
+
+*********
+Drop columns from existing data frame 
+
+>newds3.copy<-subset(ds3.copy,select=-c(RatioMet1,RatioMet2PTEditRate,RatioMet3PCmntEditRate,RatioMet4PDeletionRate))
+*********************************************************************
+
+Selecting cols from a df and making a new df
+
+>newds3.copy<-ds3.copy[,c(10,11,12,13)]
+
+
+***********************
+Copy results of kmeans to same data set using data.frame command in R
+> newds3.copy<-data.frame(newds3.copy,newds3.copyK$cluster)
+
+********************************************************
+subsetting
+
+> x<-subset(dftrial,dftrial$LASET_SKEY==1)
+> dftrial2<-subset(dftrial2,select=-c(MONTH_SKEY,LAGRP_ID))
+
+
+***********************************************************
+K Means--->data.table 
+
+ View(ladatacopy)
+> setDT(ladatacopy)[,CLST :=kmeans(.SD,centers = 6)$clust,by=ladatawrkcopy$LASET_SKEY,.SDcols=4:9]
+> write.csv(ladatacopy,file="E:\\AbhinavB\\ladataclustering2.csv")
+
+rn	MONTH_SKEY	LASET_SKEY	LAGRP_ID	CLOCKING_FUTURE_RATE	CMNT_EDIT_RATE	CLOCKING_TIME_EDIT_RATE	CLOCKING_DELETE_RATE	PC_RETRO_TC_EDIT_RATE	EXTRA_WORK_RATE	CLST
+1	259			2	42			0			0.2			0.2			0.6			1		0.25	6
+2	265			2	720			0			0			0			0			0.142857	0	4
+
+
+plotting results using plotcluster
+> library("fpc")
+> plotcluster(ladatacopy,clus$cluster)
+> View(ladatacopy)
+> plotcluster(ladatacopydf,clus$cluster)
+> View(ladatacopydf)
+> ladatacopydf3<-ladatacopydf[-c(1:3)]
+> View(ladatacopydf3)
+> clus3<-kmeans(ladatacopydf3,centers = 6)
+> plotcluster(ladatacopydf3,clus3$cluster)
+> View(ladatacopydf)
+> clus6<-kmeans(ladatacopydf,centers = 6)
+> plotcluster(ladatacopydf,clus6$cluster)
+> clus6
+
+
+******************************************************
+Arima
+> View(inflationcopy$Inflation.index)
+> View(inflationcopy)
+> plot(inflationcopy$Inflation.index,type="l")
+> acf(inflationcopy$Inflation.index)
+> pacf(inflationdf$Inflation.index)
+> View(diff1inflation)
+> plot(diff1inflation,type="l")
+> acf(diff1inflation)
+> pacf(diff1inflation)
+> install.packages("forecast")
+> acf(diff1inflation)
+> pacf(diff1inflation)
+> autoarima1<-auto.arima(diff1inflation,approximation = FALSE,trace = FALSE)
+> summary(autoarima1)
+> pred<-predict(autoarima1,n.ahead = 36)
+> pred
+
+*****************************************
+
+Classification/prediction using regression trees -CART
+
+> wtrain_set<-winedata[1:3750,]
+> wtest_set<-winedata[3750:4898,]
+> View(wtrain_set)
+> nrow(wtrain_set)
+[1] 3750
+> nrow(wtest_set)
+[1] 1149
+> install.packages("rpart")
+
+> library(rpart)
+> ?rpart.control
+> wrpart1<-rpart(quality~.,data = wtrain_set)
+> install.packages("rpart.plot")
+> rpart.plot(wrpart1,digits = 3)
+> rpart.plot(wrpart1,digits = 4)
+
+prediction 
+
+> wrpartpredict<-predict(wrpart1,wtest_set)
+
+interpret results
+> cor(wrpartpredict,wtest_set$quality)
+> mae1<-function(act,pred){mean(abs(act-pred))}
+> mae1(rtree1pred,cttestset$quality)
+> library(gmodels)
+> CrossTable(cttestset$quality,rtree1pred,prop.chisquare=FALSE,prop.r=FALSE,prop.c=FALSE,dnn = c("act Val","pred Val"))
+
+************************
+classification -where class is to be determined for dependent variable (discrete)-Classification decision trees -C5.0 algorithm
+
+
+> credit_trainset<-creditrandomdf[1:800,]
+> credit_testset<-creditrandomdf[801:1000,]
+ prop.table(table(credit_testset$default))
+> library(C50)
+> creditmodel2<-C5.0(credit_trainset[-21],credit_trainset$default,trials=1)
+> credit_trainset$default<-as.factor(credit_trainset$default)
+> str(credit_trainset$default)
+
+> creditmodel2<-C5.0(credit_trainset[-21],credit_trainset$default,trials = 1)
+> typeof(creditmodel2)
+
+> summary(creditmodel2)
+
+p<-predict(creditmodel2,credit_testset,type = "class")
+> CrossTable(credit_testset$default,p)
+Error: could not find function "CrossTable"
+> library(gmodels)
+> CrossTable(credit_testset$default,p)
+
+
+> CrossTable(credit_testset$default,p,prop.chisq = FALSE,prop.c = FALSE,prop.r = FALSE,dnn=c("actual","Predicted")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

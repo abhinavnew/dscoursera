@@ -1,0 +1,9 @@
+
+cd to working directory on local machine 
+>G:/newfolder/git clone https://github.com/ccuez
+
+>git status 
+>git add testnote.txt
+>git status
+>git commit -m "made a new change to this file"
+>git push
